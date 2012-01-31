@@ -1,6 +1,7 @@
 #from __future__ import with_statement
 from sys import exit
 from fabric.api import env, run, local, task, settings, sudo
+from fabric.contrib.files import exists
 import re
 
 @task
@@ -30,8 +31,10 @@ def links(deployconf, timestr):
 	
 @task
 def current_link(deployconf, timestr):
-	run('rm {0}{1}'.format(deployconf['site_dir'], deployconf['current_dir']))
-	run('ln -s {0}{1} {0}{2}'.format(deployconf['site_dir'], timestr, deployconf['current_dir']))
+	linkname = '{0}{1}'.format(deployconf['site_dir'], deployconf['current_dir'])
+	if (exists(linkname)):
+		run('rm {0}'.format(linkname))
+	run('ln -s {0}{1} {2}'.format(deployconf['site_dir'], timestr, linkname))
 
 @task
 def services(deployconf, timestr):
