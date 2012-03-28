@@ -2,7 +2,7 @@
 from sys import exit
 from fabric.api import env, run, local, task, settings, sudo
 from fabric.contrib.files import exists
-import re
+import re, os
 
 @task
 def clone(deployconf, timestr):
@@ -72,3 +72,6 @@ def get_environment(name, environments):
 	print 'You fail so hard. You need to configure a default environment, or specify one like so:'
 	print '   $ fab deploy:environment=production'
 	exit(1)
+
+def openenvfile(file):
+	return open(re.sub(r'\.pyc?$', '.json', os.path.basename(file)), 'r')
