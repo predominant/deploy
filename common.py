@@ -32,7 +32,7 @@ def links(deployconf, timestr):
 @task
 def current_link(deployconf, timestr):
 	linkname = '{0}{1}'.format(deployconf['site_dir'], deployconf['current_dir'])
-	if (exists(linkname)):
+	if (os.path.exists(linkname)):
 		run('rm {0}'.format(linkname))
 	run('ln -s {0}{1} {2}'.format(deployconf['site_dir'], timestr, linkname))
 
