@@ -12,7 +12,7 @@ def clone(deployconf, timestr):
 @task
 def config(deployconf, timestr):
 	for f in deployconf['configs']:
-		run('ln -s {0}{1}/{2} {0}{3}/{2}'.format(deployconf['site_dir'], deployconf['config_dir'], f, timestr))
+		run('ln -sfn {0}{1}/{2} {0}{3}/{2}'.format(deployconf['site_dir'], deployconf['config_dir'], f, timestr))
 
 @task
 def delete(deployconf, timestr):
@@ -34,7 +34,7 @@ def current_link(deployconf, timestr):
 	linkname = '{0}{1}'.format(deployconf['site_dir'], deployconf['current_dir'])
 	if (os.path.exists(linkname)):
 		run('rm {0}'.format(linkname))
-	run('ln -s {0}{1} {2}'.format(deployconf['site_dir'], timestr, linkname))
+	run('ln -sfn {0}{1} {2}'.format(deployconf['site_dir'], timestr, linkname))
 
 @task
 def services(deployconf, timestr):
