@@ -24,10 +24,10 @@ def links(deployconf, timestr):
 	for k, v in deployconf['link'].iteritems():
 		if (re.match('^\/.*', k)):
 			# Absolute path
-			run('ln -s {0} {1}{2}/{3}'.format(k, deployconf['site_dir'], timestr, v))
+			run('ln -sfn {0} {1}{2}/{3}'.format(k, deployconf['site_dir'], timestr, v))
 		else:
 			# Relative path
-			run('ln -s {0}{1} {0}{2}/{3}'.format(deployconf['site_dir'], k, timestr, v))
+			run('ln -sfn {0}{1} {0}{2}/{3}'.format(deployconf['site_dir'], k, timestr, v))
 	
 @task
 def current_link(deployconf, timestr):
