@@ -41,7 +41,8 @@ def services(deployconf, timestr):
 	run('php -r "apc_clear_cache(); apc_clear_cache(\'user\'); apc_clear_cache(\'opcode\');"');
 	sudo('service php5-fpm restart');
 
-@task fullwritable(deployconf, timestr):
+@task
+def fullwritable(deployconf, timestr):
 	for w in deployconf['fullwritable']:
 		run('chmod -R 777 {0}{1}/{2}'.format(deployconf['site_dir'], timestr, w))
 
